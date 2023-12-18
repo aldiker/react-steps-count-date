@@ -1,63 +1,41 @@
 import { useState } from 'react'
+import Counter from './components/Counter'
 
-const messages = ['Learn React', 'Apply for jobs', 'Invest your new income']
+function App() {
+    const [stepValue, setStepValue] = useState(1)
+    const [counterValue, setCounterValue] = useState(0)
 
-export default function App() {
-    const [step, setStep] = useState(1)
-    const [isOpen, setIsOpen] = useState(true)
+    const currentDay = new Date().toDateString()
 
-    function handlePrevOnClick() {
-        if (step > 1) {
-            setStep((prevStep) => prevStep - 1)
-        }
-    }
-
-    function handleNextOnClick() {
-        if (step < 3) {
-            setStep((prevStep) => prevStep + 1)
-        }
-    }
-
-    function handleClose() {
-        setIsOpen((prevValue) => !prevValue)
-    }
+    const date = new Date('June 21 2027')
+    date.setDate(date.getDate() + counterValue)
 
     return (
-        <>
-            <button className='close' onClick={handleClose}>
-                &times;
-            </button>
+        <div>
+            <Counter
+                text='Step'
+                deltaValue={1}
+                value={stepValue}
+                setValue={setStepValue}
+            />
+            <br />
+            <Counter
+                text='Count'
+                deltaValue={stepValue}
+                value={counterValue}
+                setValue={setCounterValue}
+            />
 
-            {isOpen && (
-                <div className='steps'>
-                    <div className='numbers'>
-                        <div className={`${step >= 1 ? 'active' : ''}`}>1</div>
-                        <div className={`${step >= 2 ? 'active' : ''}`}>2</div>
-                        <div className={`${step >= 3 ? 'active' : ''}`}>3</div>
-                    </div>
-                    <p className='message'>
-                        Step {step}: {messages[step - 1]}
-                    </p>
-                    <div className='buttons'>
-                        <button
-                            style={{
-                                backgroundColor: '#7950f2',
-                                color: '#fff',
-                            }}
-                            onClick={handlePrevOnClick}>
-                            Previos
-                        </button>
-                        <button
-                            style={{
-                                backgroundColor: '#7950f2',
-                                color: '#fff',
-                            }}
-                            onClick={handleNextOnClick}>
-                            Next
-                        </button>
-                    </div>
-                </div>
+            {counterValue ? (
+                <p>
+                    {counterValue} {counterValue === 1 ? 'day' : 'days'} from
+                    today is {date.toDateString()}
+                </p>
+            ) : (
+                <p>Today is {currentDay}</p>
             )}
-        </>
+        </div>
     )
 }
+
+export default App
