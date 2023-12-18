@@ -7,7 +7,7 @@ function App() {
 
     const currentDay = new Date().toDateString()
 
-    const date = new Date('June 21 2027')
+    const date = new Date(currentDay)
     date.setDate(date.getDate() + counterValue)
 
     return (
@@ -26,14 +26,16 @@ function App() {
                 setValue={setCounterValue}
             />
 
-            {counterValue ? (
-                <p>
-                    {counterValue} {counterValue === 1 ? 'day' : 'days'} from
-                    today is {date.toDateString()}
-                </p>
-            ) : (
-                <p>Today is {currentDay}</p>
-            )}
+            <p>
+                <span>
+                    {counterValue === 0
+                        ? 'Today is '
+                        : counterValue > 0
+                        ? `${counterValue} days from today is `
+                        : `${Math.abs(counterValue)} days ago was `}
+                </span>
+                <span>{date.toDateString()}</span>
+            </p>
         </div>
     )
 }

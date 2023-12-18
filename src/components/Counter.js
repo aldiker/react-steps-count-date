@@ -9,9 +9,9 @@ function Counter(props) {
     }
 
     const handlerDecreaseBtn = () => {
-        if (value >= 0 + deltaValue) {
-            setValue(value - deltaValue)
-        }
+        // if (value >= 0 + deltaValue) {
+        setValue(value - deltaValue)
+        // }
     }
 
     return (
